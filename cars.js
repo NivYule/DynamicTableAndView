@@ -191,17 +191,14 @@ function clearDOM() {
 function getListItem(carData) {
     const listItem = document.createElement("li");
     listItem.classList.add("list-group-item");
-    listItem.innerText = `Car LP: ${carData.lp}, Car Type: ${carData.type}, Car Color: ${carData.color}, Car Doors: ${carData.doors}, Is Sun Roof: ${carData.isSunRoof}`;
+    listItem.innerHTML = `<b><i>Car LP:</i></b> ${carData.lp}, <b><i>Car Type:</i></b> ${carData.type}, <b><i>Car Color:</i></b> ${carData.color}, <b><i>Car Doors:</i></b> ${carData.doors}, <b><i>Is Sun Roof:</i></b> ${carData.isSunRoof}`;
     return listItem;
 }
 
 function getCardItem(carData) {
     const card = document.createElement("div");
-    card.style.border = "1px solid black";
-    card.style.height = "50px";
-    card.style.width = "300px";
-    card.style.display = "inline-block";
-    card.innerText = `car lp: ${carData.lp}, car color: ${carData.color} , car type: ${carData.type}`;
+    card.classList.add('card-main');
+    card.innerHTML = `<b><i>Car LP:</i></b> ${carData.lp}, <b><i>Car Type:</i></b> ${carData.type}, <b><i>Car Color:</i></b> ${carData.color}, <b><i>Car Doors:</i></b> ${carData.doors}, <b><i>Is Sun Roof:</i></b> ${carData.isSunRoof}`;
     return card;
 }
 

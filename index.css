@@ -12,3 +12,10 @@
     100% { transform: rotate(360deg); }
   }
   
+  .card-main {
+    border: 1px solid black;
+    height: 100px;
+    width: 350px;
+    display: inline-block;
+    text-align: center;
+  }
