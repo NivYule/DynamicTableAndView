@@ -111,6 +111,7 @@ function generateSingleCar(index) {
     const cardViewButton = document.getElementById("cardView");
     const tableViewButton = document.getElementById("tableView");
     const searchOperation = document.getElementById("searchOperation");
+    const sunRoofCheckbox = document.getElementById("isSunRoofCheckbox");
 
     listViewButton.addEventListener("click", function () {
         DOM.whatToDraw = "list";
@@ -130,6 +131,23 @@ function generateSingleCar(index) {
         const value = document.getElementById("searchValue").value;
         if (!value) return;
         const result = cars.filter(car => { return car.type.toLowerCase() === value.toLowerCase() })
+        if (DOM.whatToDraw === "table") {
+            draw(result, DOM.tableData, "table")
+            draw(headers, DOM.tableHead, "tableHeader", false)
+        }
+        if (DOM.whatToDraw === "cards") {
+            draw(result, DOM.cardsData, "cards")
+        }
+        if (DOM.whatToDraw === "list") {
+            draw(result, DOM.listData, "list")
+        }
+
+    })
+
+    sunRoofCheckbox.addEventListener("change", function() {
+        const checked = document.getElementById("isSunRoofCheckbox").checked;
+        if (!checked) return;
+        const result = cars.filter(car => { return car.isSunRoof === checked })
         if (DOM.whatToDraw === "table") {
             draw(result, DOM.tableData, "table")
             draw(headers, DOM.tableHead, "tableHeader", false)
@@ -173,7 +191,7 @@ function clearDOM() {
 function getListItem(carData) {
     const listItem = document.createElement("li");
     listItem.classList.add("list-group-item");
-    listItem.innerText = `car lp: ${carData.lp}, car color: ${carData.color}`;
+    listItem.innerText = `Car LP: ${carData.lp}, Car Type: ${carData.type}, Car Color: ${carData.color}, Car Doors: ${carData.doors}, Is Sun Roof: ${carData.isSunRoof}`;
     return listItem;
 }
 
