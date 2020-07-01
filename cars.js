@@ -146,7 +146,7 @@ function generateSingleCar(index) {
 
     sunRoofCheckbox.addEventListener("change", function() {
         const checked = document.getElementById("isSunRoofCheckbox").checked;
-        if (!checked) return;
+        if (!checked) {
         const result = cars.filter(car => { return car.isSunRoof === checked })
         if (DOM.whatToDraw === "table") {
             draw(result, DOM.tableData, "table")
@@ -158,7 +158,20 @@ function generateSingleCar(index) {
         if (DOM.whatToDraw === "list") {
             draw(result, DOM.listData, "list")
         }
-
+        }
+        else {
+            const result = cars.filter(car => { return car.isSunRoof === checked })
+            if (DOM.whatToDraw === "table") {
+                draw(result, DOM.tableData, "table")
+                draw(headers, DOM.tableHead, "tableHeader", false)
+            }
+            if (DOM.whatToDraw === "cards") {
+                draw(result, DOM.cardsData, "cards")
+            }
+            if (DOM.whatToDraw === "list") {
+                draw(result, DOM.listData, "list")
+            }
+        }
     })
 }())
 
