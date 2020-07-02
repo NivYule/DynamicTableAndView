@@ -34,7 +34,7 @@ const headers = [[
     {
         value: "isSunRoof",
         label: "Sun Roof",
-        isVisible: true
+        isVisible: false
     },
     {
         value: "isAWD",
@@ -111,20 +111,48 @@ function generateSingleCar(index) {
     const cardViewButton = document.getElementById("cardView");
     const tableViewButton = document.getElementById("tableView");
     const searchOperation = document.getElementById("searchOperation");
-    const sunRoofCheckbox = document.getElementById("isSunRoofCheckbox");
 
     listViewButton.addEventListener("click", function () {
         DOM.whatToDraw = "list";
+        document.getElementById("checkbox").innerText = ""
         draw(cars, DOM.listData, "list")
     })
     cardViewButton.addEventListener("click", function () {
         DOM.whatToDraw = "cards"
+        document.getElementById("checkbox").innerText = ""
         draw(cars, DOM.cardsData, "cards")
     })
     tableViewButton.addEventListener("click", function () {
         DOM.whatToDraw = "table"
         draw(cars, DOM.tableData, "table")
         draw(headers, DOM.tableHead, "tableHeader", false)
+        
+        // checkbox Sunrooff
+
+        if (DOM.whatToDraw === "table") {
+            
+           var divOfCheckbox = document.getElementById("checkbox")
+           divOfCheckbox.innerText = "is Sunroof"
+             var checkbox = document.createElement("input")
+            checkbox.type = 'checkbox'
+            divOfCheckbox.appendChild(checkbox)
+            checkbox.addEventListener('change', function(event) {
+                if (event.target.checked) {
+                    headers[0][4].isVisible = true;
+                    clearDOM()
+                    draw(cars, DOM.tableData, "table")
+                    draw(headers, DOM.tableHead, "tableHeader", false)
+                } else {
+                    headers[0][4].isVisible = false;
+                    clearDOM()
+                    draw(cars, DOM.tableData, "table")
+                    draw(headers, DOM.tableHead, "tableHeader", false)
+                }
+              });
+            
+            
+        }
+        
     })
 
     searchOperation.addEventListener("click", function () {
@@ -142,36 +170,6 @@ function generateSingleCar(index) {
             draw(result, DOM.listData, "list")
         }
 
-    })
-
-    sunRoofCheckbox.addEventListener("change", function() {
-        const checked = document.getElementById("isSunRoofCheckbox").checked;
-        if (!checked) {
-        const result = cars.filter(car => { return car.isSunRoof === checked })
-        if (DOM.whatToDraw === "table") {
-            draw(result, DOM.tableData, "table")
-            draw(headers, DOM.tableHead, "tableHeader", false)
-        }
-        if (DOM.whatToDraw === "cards") {
-            draw(result, DOM.cardsData, "cards")
-        }
-        if (DOM.whatToDraw === "list") {
-            draw(result, DOM.listData, "list")
-        }
-        }
-        else {
-            const result = cars.filter(car => { return car.isSunRoof === checked })
-            if (DOM.whatToDraw === "table") {
-                draw(result, DOM.tableData, "table")
-                draw(headers, DOM.tableHead, "tableHeader", false)
-            }
-            if (DOM.whatToDraw === "cards") {
-                draw(result, DOM.cardsData, "cards")
-            }
-            if (DOM.whatToDraw === "list") {
-                draw(result, DOM.listData, "list")
-            }
-        }
     })
 }())
 
@@ -204,14 +202,17 @@ function clearDOM() {
 function getListItem(carData) {
     const listItem = document.createElement("li");
     listItem.classList.add("list-group-item");
-    listItem.innerHTML = `<b><i>Car LP:</i></b> ${carData.lp}, <b><i>Car Type:</i></b> ${carData.type}, <b><i>Car Color:</i></b> ${carData.color}, <b><i>Car Doors:</i></b> ${carData.doors}, <b><i>Is Sun Roof:</i></b> ${carData.isSunRoof}`;
+    listItem.innerText = `car lp: ${carData.lp}, car color: ${carData.color}`;
     return listItem;
 }
 
 function getCardItem(carData) {
     const card = document.createElement("div");
-    card.classList.add('card-main');
-    card.innerHTML = `<b><i>Car LP:</i></b> ${carData.lp}, <b><i>Car Type:</i></b> ${carData.type}, <b><i>Car Color:</i></b> ${carData.color}, <b><i>Car Doors:</i></b> ${carData.doors}, <b><i>Is Sun Roof:</i></b> ${carData.isSunRoof}`;
+    card.style.border = "1px solid black";
+    card.style.height = "50px";
+    card.style.width = "300px";
+    card.style.display = "inline-block";
+    card.innerText = `car lp: ${carData.lp}, car color: ${carData.color} , car type: ${carData.type}`;
     return card;
 }
 
@@ -272,4 +273,3 @@ function getRowItem(carData) {
         return td;
     }
 }
-
